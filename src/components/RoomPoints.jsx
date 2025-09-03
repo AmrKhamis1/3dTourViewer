@@ -59,9 +59,11 @@ function RoomPoints({ pos, onClick, isActive, isClicked, animteLoad }) {
     : markerControls.defaultOpacity;
 
   return (
-    <group position={[pos.x, pos.y - 1.63, pos.z]}>
+    <group position={[pos.x, pos.y - 1.5, pos.z]}>
       <mesh
         ref={meshRef}
+        name="room-point"
+        userData={{ isRoomPoint: true }}
         onClick={handleClick}
         onPointerEnter={() => setHovered(true)}
         onPointerLeave={() => setHovered(false)}

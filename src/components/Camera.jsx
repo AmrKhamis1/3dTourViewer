@@ -4,7 +4,7 @@ import gsap from "gsap";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 
-function Camera({ animateTo }) {
+function Camera({ animateTo, duration = 1 }) {
   const controlsRef = useRef();
   const sphericalRef = useRef(null);
   const tweenRef = useRef(null);
@@ -33,8 +33,8 @@ function Camera({ animateTo }) {
         x: animateTo.x,
         y: animateTo.y + 0,
         z: animateTo.z + 0,
-        duration: 1.3,
-        ease: "power2.inOut",
+        duration,
+        ease: "power1.inOut",
         onUpdate: () => {
           if (sphericalRef.current) {
             const newPos = new THREE.Vector3()

@@ -13,6 +13,7 @@ export default function ProjectedPanoMesh({
   faceOrder = [2, 4, 0, 5, 1, 3],
   updateAnimation,
   onMeshClick, // new prop
+  duration = 1,
 }) {
   const groupRef = useRef();
   const { nodes, scene } = useGLTF(modelUrl);
@@ -77,11 +78,10 @@ export default function ProjectedPanoMesh({
       uniforms.uPanoPos2.value = panoPosition || new THREE.Vector3();
       gsap.killTweensOf(uniforms.uMix);
 
-      // tween from current to  1
       gsap.to(uniforms.uMix, {
         value: 1,
-        duration: 1.3,
-        ease: "power2.inOut",
+        duration,
+        ease: "power1.inOut",
         onInterrupt: () => {
           uniforms.uMix.value = 0; // reset for interruption transition
         },
@@ -105,7 +105,7 @@ export default function ProjectedPanoMesh({
       rotation={scene?.rotation}
     >
       <mesh material={material} position={panoPosition}>
-        <boxGeometry args={[25, 25, 25]}></boxGeometry>
+        <boxGeometry args={[55, 55, 55]}></boxGeometry>
       </mesh>
       {Object.entries(nodes).map(([key, node]) =>
         node?.isMesh ? (
@@ -113,8 +113,6 @@ export default function ProjectedPanoMesh({
             key={key}
             geometry={node.geometry}
             material={material}
-            // position={node.position}
-            // rotation={node.rotation}
             scale={node.scale}
             frustumCulled={false}
           />
